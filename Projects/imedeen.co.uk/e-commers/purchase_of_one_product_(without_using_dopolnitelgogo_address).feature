@@ -45,7 +45,7 @@ Scenario: Submits feedback when required fields are filled out
   Given I wait for 5 seconds
   When I click on the element with xpath "//*[@id='ctl00_MainContent_WindowUC1_ctl00_ctl00_Logo3']"
   Then the "ctl00_MainContent_WindowUC1_ctl00_ctl00_cardno" field should contain "3333 3333 3333 3000"
-  Then the "ctl00_MainContent_WindowUC1_ctl00_ctl00_expmonth" field should contain "02"
+  Then the "ctl00_MainContent_WindowUC1_ctl00_ctl00_expmonth" field should contain "03"
   Then the "ctl00_MainContent_WindowUC1_ctl00_ctl00_expyear" field should contain "16"
   Then the "ctl00_MainContent_WindowUC1_ctl00_ctl00_cvc" field should contain "123"
   Then I press the "ctl00_MainContent_WindowUC1_ctl00_ctl00_btnSubmitForm" button

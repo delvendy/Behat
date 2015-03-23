@@ -1,14 +1,52 @@
-Feature:purchase of goods
+Feature:site_map
   @javascript
-  as unregistered user I want to purchase multiple items and receive a special offer using the optional address
-Scenario: Submits feedback when required fields are filled out
+  
+Scenario: walk through the site map
   Given I am on "/"
-  Then I should see "Information about use of cookies"
+  Then I should see "puuk.ee"
   When I press the "Yes, I agree" button
-  Then I should see "Let your beautiful skin come from the inside"
+  
   And I wait for 5 seconds
-  When I click on the text "Buy Online"
+  When I click on the text "Kes on puuk?"
   And I wait for 5 seconds
+  Then I should see "Kes on puuk?"
+  When I click on the element with xpath "//*[@id='block-block-16']/div/div[2]/div/div/a[1]"
+  Then I should see "Sisujuht"
+  When I click on the element with xpath "//*[@id='node-281']/div/div/div[2]/div/div/ul/li[2]/a"
+  Then I should see "Puugihammustus"
+  When I click on the element with xpath "//*[@id='block-block-16']/div/div[2]/div/div/a[1]"
+  Then I should see "Sisujuht"
+  When I click on the text "Haigused"
+  Then I should see "Puukentsefaliidi viirus (TBE-viirus)"
+  When I click on the element with xpath "//*[@id='block-block-16']/div/div[2]/div/div/a[1]"
+  Then I should see "Sisujuht"
+  When I click on the text "Puukentsefaliidi viirus (TBE-viirus)"
+  Then I should see "Puukentsefaliidi viirus (TBE-viirus)"
+  When I click on the element with xpath "//*[@id='block-block-16']/div/div[2]/div/div/a[1]"
+  Then I should see "Sisujuht"
+  When I click on the text "Puukborrelioos"
+  Then I should see "Puukborrelioos"
+  When I click on the element with xpath "//*[@id='block-block-16']/div/div[2]/div/div/a[1]"
+  Then I should see "Sisujuht"
+  When I click on the text "Erlihhioos"
+  Then I should see "Erlihhioos"
+  When I click on the element with xpath "//*[@id='block-block-16']/div/div[2]/div/div/a[1]"
+  Then I should see "Sisujuht"
+  When I click on the element with xpath "//*[@id='node-281']/div/div/div[2]/div/div/ul/li[3]/a"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   Then I should see "IMEDEEN Online Shop"
   When I press the "edit-submit--3" button
   Then I should see "Item successfully added to your cart"
