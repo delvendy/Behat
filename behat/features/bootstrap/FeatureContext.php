@@ -53,7 +53,7 @@ class FeatureContext extends DrupalContext implements Context, SnippetAcceptingC
         $element->click();
  
     }
-	/**
+   /**
    * @When /^I fill input "([^"]*)" with "([^"]*)"$/
    * ввод рандомных данных в одно поле
    */
@@ -202,9 +202,10 @@ class FeatureContext extends DrupalContext implements Context, SnippetAcceptingC
       }
     }
     /**
-   * @When /^I fill input one "([^"]*)" and two "([^"]*)" with "([^"]*)"$/
-   */
-  public function iFillInputOneAndTwoWith($field_one, $field_two, $value) {
+    * @When /^I fill input one "([^"]*)" and two "([^"]*)" with "([^"]*)"$/
+    * the same data in two different fields
+    */
+	public function iFillInputOneAndTwoWith($field_one, $field_two, $value) {
      $alphabets = array(
       'latin' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
       'cyrillic' => 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',

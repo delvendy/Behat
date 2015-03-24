@@ -18,7 +18,7 @@ default:
         wd_host: 'http://192.168.88.113:4444/wd/hub'
       #base_url: http://tickalert.org/
       #base_url: http://co.uk.imedeen.uk.propeople.com.ua/
-      base_url: http://www.puuk.ee
+      base_url: http://pfdigital:Pfizer%40123@devpuukee.pfizer.edrupalgardens.com/
       browser_name: chrome
     Drupal\DrupalExtension:
       blackbox: ~
