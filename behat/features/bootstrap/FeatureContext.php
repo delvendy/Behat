@@ -8,6 +8,7 @@ use Drupal\DrupalExtension\Context\DrupalContext;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Drupal\SubContextInterface;
 use Behat\Mink\Driver\Selenium2Driver;
+
 //
 // Require 3rd-party libraries here:
 //
@@ -266,82 +267,72 @@ class FeatureContext extends DrupalContext implements Context, SnippetAcceptingC
             }
           }
       }
-	/**
- * Get the instance variable to use in Javascript.
- *
- * @param string
- * The instanceId used by the WYSIWYG module to identify the instance.
- *
- * @throws Exeception
- * Throws an exception if the editor doesn't exist.
- *
- * @return string
- * A Javascript expression representing the WYSIWYG instance.
- */
- protected function getWysiwygInstance($instanceId) {
- $instance = "Drupal.wysiwyg.instances['$instanceId']";
+	 
+	
+	  /**
+		* Click some element with id if available
+		*
+		* @When /^I click on (?:|the )element with id "([^"]*)" if it exists$/
+		*/
+		public function iClickOnTheElementWithIdIfItExists($id) {
+			$session = $this->getSession();
+			$element = $session->getPage()->findField($id);
+			if (NULL !== $element) {
+				$element->click(); 
+			}
+		}
+	  /**
+	   * @Then /^I should see the css selector "([^"]*)"$/
+	   */
+	  public function iShouldSeeTheCssSelector($css_selector) {
+		$element = $this->getSession()->getPage()->find("css", $css_selector);
+		if (empty($element)) {
+		  throw new \Exception(sprintf("The page '%s' does not contain the css selector '%s'", $this->getSession()->getCurrentUrl(), $css_selector));
+		}
+	  }
+     
+  
 
- if (!$this->getSession()->evaluateScript("return !!$instance")) {
- throw new \Exception(sprintf('The editor "%s" was not found on the page %s', $instanceId, $this->getSession()->getCurrentUrl()));
- }
 
- return $instance;
- }
 
-/**
- * @When /^I fill in the "([^"]*)" WYSIWYG editor with "([^"]*)"$/
- */
- public function iFillInTheWysiwygEditor($instanceId, $text) 
- {
-    $alphabets = array(
-      'latin' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'cyrillic' => 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
-    );
 
-    if ($text == 'random') {
-      $chars = $alphabets['latin'] . '0123456789#!$%^&*()_-+=';
-      $strlen = strlen($chars) - 1;
-      $text = '';
-      for ($i = 0; $i < 200; ++$i) {
-        $text .= $chars[rand(0, $strlen)];
-      }
-    }
+    
 
-    $this-> wysiwyg[$instanceId] = $text;
-    $instance = $this->getWysiwygInstance($instanceId);
-    $this->getSession()->executeScript("$instance.insert(\"$text\");");
- }
-
- /**
-  *Check the displaying of the random text that was entered to WYSIWYG editor
-  *
-  * @Then /^I check WYSIWYG displaying "([^"]*)"$/
-  */
-  public function iCheckWysiwygDisplaying($instanceId)
-  {
-    if (strpos($this->getMainContext()->getSession()->getPage()->getText(), $this->wysiwyg[$instanceId]) === false) {
-      throw new \Exception('Something wrong');
-    }
-  }
-  /**
-    * Click some element with id if available
-    *
-    * @When /^I click on (?:|the )element with id "([^"]*)" if it exists$/
-    */
-    public function iClickOnTheElementWithIdIfItExists($id) {
-        $session = $this->getSession();
-        $element = $session->getPage()->findField($id);
-        if (NULL !== $element) {
-            $element->click(); 
+    /**
+     * Get the editor instance for use in Javascript.
+     *
+     * @param string $selector
+     *   Any selector of a form field.
+     *
+     * @throws \RuntimeException
+     * @throws \Exception
+     * @throws NoSuchElement
+     *
+     * @javascript
+     *
+     * @return string
+     *   A Javascript expression representing the WYSIWYG instance.
+     */
+    public function getWysiwygInstance($selector = null)
+    {
+        if (!$selector && !$this->wysiwyg) {
+            throw new \RuntimeException('No such editor was not selected.');
         }
+
+        $this->selector = $selector ?: $this->wysiwyg;
+        $field = $this->getWorkingElement()->findField($this->selector);
+
+        $this->throwNoSuchElementException($this->selector, $field);
+        $id = $field->getAttribute('id');
+
+        $instance = "CKEDITOR.instances['$id']";
+
+        if (!$this->getSession()->evaluateScript("return !!$instance")) {
+          throw new \Exception(sprintf('The editor "%s" was not found on the page %s', $id, $this->getSession()->getCurrentUrl()));
+        }
+
+        return $instance;
+    
+
     }
-  /**
-   * @Then /^I should see the css selector "([^"]*)"$/
-   */
-  public function iShouldSeeTheCssSelector($css_selector) {
-    $element = $this->getSession()->getPage()->find("css", $css_selector);
-    if (empty($element)) {
-      throw new \Exception(sprintf("The page '%s' does not contain the css selector '%s'", $this->getSession()->getCurrentUrl(), $css_selector));
-    }
-  }
-}
+	}

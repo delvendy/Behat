@@ -3,7 +3,6 @@ default:
     default:
       contexts:
         - FeatureContext
-        #- Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MarkupContext
@@ -15,10 +14,10 @@ default:
       selenium2:
         #wd_host: 'http://git.spheresh.com:4444/wd/hub'
         #wd_host: 'http://10.8.0.6:4445/wd/hub'
-        wd_host: 'http://192.168.88.113:4444/wd/hub'
+        wd_host: 'http://192.168.88.145:4444/wd/hub'
       #base_url: http://tickalert.org/
-      #base_url: http://co.uk.imedeen.uk.propeople.com.ua/
-      base_url: http://pfdigital:Pfizer%40123@devpuukee.pfizer.edrupalgardens.com/
+      base_url: http://co.uk.imedeen.uk.propeople.com.ua/
+      #base_url: http://roskilde-open-school.propeople.com.ua/
       browser_name: chrome
     Drupal\DrupalExtension:
       blackbox: ~
