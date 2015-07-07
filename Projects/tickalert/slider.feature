@@ -1,4 +1,4 @@
-Feature:purchase of goods
+Feature:Slider
   @javascript
 	slider
 Scenario: slider to switch to the specified intervals
